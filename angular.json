@@ -13,8 +13,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/dora-onboarding",
-            "index": "src/index.html",
+            "outputPath": "docs",
+            "index": "src/index.html",git
             "main": "src/main.ts",
             "polyfills": [
               "zone.js"
