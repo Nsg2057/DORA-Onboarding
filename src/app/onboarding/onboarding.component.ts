@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-interface Food {
-  value: string;
-  viewValue: string;
-}
+import {CsvService} from "../csv.service";
+
 @Component({
   selector: 'app-onboarding',
   templateUrl: './onboarding.component.html',
@@ -12,16 +10,23 @@ interface Food {
 export class OnboardingComponent {
   uuid: string | null = null;
 
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
-constructor() {
+constructor(private csvService: CsvService) {
 this.generateUuid();
 }
   generateUuid(): void {
     this.uuid = "DORA" + Date.now();
     console.log("generated UUID" , this.uuid);
+    this.loadCsvData();
   }
+
+  async loadCsvData() {
+    const csvFilePath = 'assets/data.csv'; // Replace with your CSV file path
+
+    this.csvService.getCsvData(csvFilePath).subscribe(csvData => {
+      const jsonData = this.csvService.parseCsvToJson(csvData);
+      console.log(jsonData); // JSON data from CSV
+    });
+  }
+
+
 }

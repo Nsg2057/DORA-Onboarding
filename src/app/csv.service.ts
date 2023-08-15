@@ -8,7 +8,6 @@ import {HttpClient} from "@angular/common/http";
 export class CsvService {
 
   constructor(private http:HttpClient) {
-    // this.getCsvData("./assets/Data.csv");
   }
 
   getCsvData(csvFilePath: string): Observable<string> {
