@@ -8,25 +8,6 @@ import {CsvService} from "./csv.service";
 })
 export class AppComponent {
   title = 'DORA-Onboarding';
-  jsonData:any;
-  // eamsAppId: String;
-
-
-
-constructor(private csvService:CsvService) {
-  this.loadCsvData();
-
-}
-
-  async loadCsvData() {
-    const csvFilePath = 'assets/Data.csv';
-
-    this.csvService.getCsvData(csvFilePath).subscribe(csvData => {
-      this.jsonData = this.csvService.parseCsvToJson(csvData);
-      console.log(this.jsonData);
-    });
-  }
-
 }
 
 
