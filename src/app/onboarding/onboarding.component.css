@@ -1,2 +1,28 @@
 @import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
 
+/* Adjust the layout of form-group elements */
+.form-group {
+  margin-bottom: 15px; /* Adjust spacing between form groups */
+}
+
+/* Style the label for better alignment */
+.form-group label {
+  margin-bottom: 5px; /* Adjust spacing between label and input */
+}
+
+/* Style the input fields for better appearance */
+.form-group input.mat-input-element {
+  width: 100%; /* Ensure the input takes up the full width */
+  padding: 8px 12px; /* Add padding for a consistent look */
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+}
+
+/* Adjust the dropdown/autocomplete panel width and position */
+.mat-autocomplete-panel {
+  width: calc(100% - 24px); /* Adjust as needed */
+  position: absolute;
+  z-index: 1;
+  margin-top: 5px; /* Add margin to create space between input and panel */
+}
+
+
