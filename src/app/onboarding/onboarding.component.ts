@@ -23,7 +23,10 @@ export class OnboardingComponent implements OnInit{
   showCdUrlInput = false;
 
 
-  formGroup: FormGroup = new FormGroup(undefined);
+  formGroup: FormGroup = new FormGroup({
+    ciUrl:new FormControl(''),
+    cdUrl:new FormControl('')
+  });
 
 
   uuid: string | null = null;
@@ -140,13 +143,6 @@ this.loadCsvData();
     });
 
   }
-// validateForm(){
-//   this.formGroup = this.fb.group({
-//     ciCdOption: ['', Validators.required],
-//     ciUrl: [''],
-//     cdUrl: ['']
-//   });
-// }
 
   selectedOptionCID() {
     const selectedOptionControl = this.formGroup.get('ciCdOption');
