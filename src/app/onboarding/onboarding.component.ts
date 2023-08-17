@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {CsvService} from "../csv.service";
-import {FormControl} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
+import {group} from "@angular/animations";
 
 
 @Component({
@@ -16,6 +17,13 @@ export class OnboardingComponent implements OnInit{
   eamsAppAcronymsFormControl = new FormControl('');
   appHostingEnvFormControl = new FormControl('');
   cicdToolFormControl:any;
+  selectedCID: string | null = null ;
+
+  showCiUrlInput = false;
+  showCdUrlInput = false;
+
+
+  formGroup: FormGroup = new FormGroup(undefined);
 
 
   uuid: string | null = null;
@@ -40,20 +48,22 @@ export class OnboardingComponent implements OnInit{
 
   cicdTools:string[] = [];
 
-constructor(private csvService  : CsvService) {
+constructor(private csvService  : CsvService, private fb: FormBuilder) {
 this.generateUuid();
 this.loadCsvData();
+
 
 }
 
   ngOnInit() {
-    this.autoCompleteEamsAppIds();
+     this.autoCompleteEamsAppIds();
     this.autoCompleteEamsAppNames();
     this.autoCompleteEamsAppAcronyms();
     this.autoCompleteAppHostingEnvs();
+    // this.validateForm();
   }
   //Gettting EamsAppIds when user starts typing
-  private autoCompleteEamsAppIds(){
+   autoCompleteEamsAppIds(){
     this.filteredeEamsAppIds = this.eamsAppIdFormControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filterEamsAppIds(value || '')),
@@ -130,6 +140,26 @@ this.loadCsvData();
     });
 
   }
+// validateForm(){
+//   this.formGroup = this.fb.group({
+//     ciCdOption: ['', Validators.required],
+//     ciUrl: [''],
+//     cdUrl: ['']
+//   });
+// }
 
+  selectedOptionCID() {
+    const selectedOptionControl = this.formGroup.get('ciCdOption');
+    const cdUrlControl = this.formGroup.get('cdUrl');
 
+    if (selectedOptionControl && cdUrlControl) {
+      const selectedOption = selectedOptionControl.value;
+
+      if (selectedOption === 'yes') {
+        cdUrlControl.enable();
+      } else {
+        cdUrlControl.disable();
+      }
+    }
+  }
 }

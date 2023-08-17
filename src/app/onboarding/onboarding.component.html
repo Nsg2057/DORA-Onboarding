@@ -1,38 +1,32 @@
-<div class="form-group">
-  <label for="eamsAppId">EamsAppId</label>
-    <input type="text"
-           class="form-control"
-           placeholder="Start Typing"
-           aria-label="Number"
-           matInput
-           [formControl]="eamsAppIdFormControl"
-           [matAutocomplete]="autoEamsAppId" id="eamsAppId">
-    <mat-autocomplete #autoEamsAppId="matAutocomplete">
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>Assignee</mat-label>
+    <input type="text" matInput [formControl]="eamsAppIdFormControl" [matAutocomplete]="autoEamsAppId">
+    <mat-autocomplete #autoEamsAppId="matAutocomplete" >
       <mat-option *ngFor="let option of filteredeEamsAppIds | async" [value]="option">
         {{option}}
       </mat-option>
     </mat-autocomplete>
-</div>
-
-<div class="form-group">
-  <label for="eamsAppName">EamsAppName</label>
+  </mat-form-field>
+</form>
+  <mat-form-field>
+  <mat-label >EamsAppName</mat-label>
   <input type="text"
          class="form-control"
          placeholder="Start Typing"
          aria-label="Number"
          matInput
          [formControl]="eamsAppNameFormControl"
-         [matAutocomplete]="autoEamsAppName" id="eamsAppName">
+         [matAutocomplete]="autoEamsAppName"
+          id="eamsAppName">
   <mat-autocomplete #autoEamsAppName="matAutocomplete">
     <mat-option *ngFor="let option of filteredEamsAppNames | async" [value]="option">
       {{option}}
     </mat-option>
   </mat-autocomplete>
-</div>
-
-
-<div class="form-group">
-  <label for="eamsAppAcronym">Eams App Acronym</label>
+  </mat-form-field>
+  <mat-form-field>
+  <mat-label for="eamsAppAcronym">Eams App Acronym</mat-label>
   <input type="text"
          class="form-control"
          placeholder="Start Typing"
@@ -40,12 +34,14 @@
          matInput
          [formControl]="eamsAppAcronymsFormControl"
          [matAutocomplete]="EamsAppAcronym" id="eamsAppAcronym">
-  <mat-autocomplete #EamsAppAcronym="matAutocomplete">
+  <mat-autocomplete #EamsAppAcronym=>
     <mat-option *ngFor="let option of filteredEamsAppAcronyms | async" [value]="option">
       {{option}}
     </mat-option>
   </mat-autocomplete>
-</div>
+</mat-form-field>
+
+
 <div class="form-group">
   <label for="serviceName">Service Name</label>
   <input type="text" id="serviceName">
@@ -56,19 +52,33 @@
   <input type="text" id = "projectKeyJira">
 </div>
 
+<form [formGroup]="formGroup">
+  <div class="form-group">
+    <label>Separate CI/CD branches?</label>
+    <div class="radio-group">
+      <label>
+        <input type="radio" formControlName="ciCdOption" value="yes" (change)="selectedOptionCID()">
+        Yes
+      </label>
+      <label>
+        <input type="radio" formControlName="ciCdOption" value="no" (change)="selectedOptionCID()">
+        No
+      </label>
+    </div>
+  </div>
 <!--should get repo owner name, repo name, url-->
 <!--Store multiple values -->
 <!--In case you have separate CI/CD branches, ask for github CD branch URL, and CI URL otherwise get one value and store it-->
-<div class="form-group">
-  <label for="gitCloneUrlHttpsCI">gitCloneUrlHttpsCI</label>
-  <input type="text" id="gitCloneUrlHttpsCI">
-</div>
-<!--Can provide multiple CD urls in general case -->
-<!--For special cases with multiple CI/CD urls, we should allow multiple CI urls and one CD url-->
-<div class="form-group">
-  <label for="gitCloneUrlHttpsCD">gitCloneUrlHttpsCD</label>
-  <input type="text" id="gitCloneUrlHttpsCD">
-</div>
+  <div class="form-group" *ngIf="showCiUrlInput">
+    <label for="gitCloneUrlHttpsCI">gitCloneUrlHttpsCI</label>
+    <input type="text" id="gitCloneUrlHttpsCI" formControlName="ciUrl">
+  </div>
+
+  <div class="form-group" *ngIf="showCdUrlInput">
+    <label for="gitCloneUrlHttpsCD">gitCloneUrlHttpsCD</label>
+    <input type="text" id="gitCloneUrlHttpsCD" formControlName="cdUrl">
+  </div>
+</form>
 
 <!--should be able to add multiple values at once-->
 <div class="form-group">
@@ -127,3 +137,4 @@
   <label for="cdsidLL5">cdsidLL5</label>
   <input type="text" id="cdsidLL5">
 </div>
+
