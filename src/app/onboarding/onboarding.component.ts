@@ -25,7 +25,8 @@ export class OnboardingComponent implements OnInit{
 
   formGroup: FormGroup = new FormGroup({
     ciUrl:new FormControl(''),
-    cdUrl:new FormControl('')
+    cdUrl:new FormControl(''),
+    ciCdOption:new FormControl('')
   });
 
 
@@ -152,9 +153,10 @@ this.loadCsvData();
       const selectedOption = selectedOptionControl.value;
 
       if (selectedOption === 'yes') {
-        cdUrlControl.enable();
+        this.showCiUrlInput = true;
+        this.showCdUrlInput = true;
       } else {
-        cdUrlControl.disable();
+        this.showCiUrlInput = true;
       }
     }
   }

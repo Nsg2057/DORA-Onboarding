@@ -1,6 +1,6 @@
 <form class="example-form">
   <mat-form-field class="example-full-width">
-    <mat-label>Assignee</mat-label>
+    <label>Eams App Id</label>
     <input type="text" matInput [formControl]="eamsAppIdFormControl" [matAutocomplete]="autoEamsAppId">
     <mat-autocomplete #autoEamsAppId="matAutocomplete" >
       <mat-option *ngFor="let option of filteredeEamsAppIds | async" [value]="option">
@@ -8,9 +8,9 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-</form>
+
   <mat-form-field>
-  <mat-label >EamsAppName</mat-label>
+  <mat-label >Eams App Name</mat-label>
   <input type="text"
          class="form-control"
          placeholder="Start Typing"
@@ -25,8 +25,9 @@
     </mat-option>
   </mat-autocomplete>
   </mat-form-field>
+
   <mat-form-field>
-  <mat-label for="eamsAppAcronym">Eams App Acronym</mat-label>
+  <label>Eams App Acronym</label>
   <input type="text"
          class="form-control"
          placeholder="Start Typing"
@@ -66,6 +67,7 @@
       </label>
     </div>
   </div>
+</form>
 <!--should get repo owner name, repo name, url-->
 <!--Store multiple values -->
 <!--In case you have separate CI/CD branches, ask for github CD branch URL, and CI URL otherwise get one value and store it-->
@@ -100,8 +102,7 @@
   aria-label="Number"
   matInput
   [formControl]="appHostingEnvFormControl"
-  [matAutocomplete]="appHostingEnv"
-  >
+  [matAutocomplete]="appHostingEnv">
   <mat-autocomplete #appHostingEnv="matAutocomplete">
     <mat-option *ngFor="let option of filteredappHostingEnvs | async" [value]="option">
       {{option}}
@@ -113,7 +114,7 @@
 <div class="form-group">
   <label for="cicdTool">cicdTool</label>
   <mat-form-field id="cicdTool">
-    <mat-select [formControl]="cicdToolFormControl" multiple>
+    <mat-select  multiple>
       <mat-option *ngFor="let tool of cicdTools" [value]="tool">{{tool}}</mat-option>
     </mat-select>
   </mat-form-field>
@@ -137,4 +138,5 @@
   <label for="cdsidLL5">cdsidLL5</label>
   <input type="text" id="cdsidLL5">
 </div>
+
 
