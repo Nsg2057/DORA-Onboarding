@@ -30,7 +30,7 @@ export class OnboardingComponent implements OnInit {
     cdsidSpocControl: new FormControl(''),
     cdsidLL6Control: new FormControl(''),
     cdsidLL5Control: new FormControl(''),
-    radioButtonControl: new FormControl('')
+    radioButtonControl: new FormControl(false)
 
   });
 

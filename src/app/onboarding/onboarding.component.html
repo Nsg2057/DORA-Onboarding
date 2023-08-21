@@ -6,7 +6,7 @@
              placeholder="Start typing"
              aria-label="Number"
              matInput
-             [formControl]="OnboardingForm.controls.eamsAppIdFormControl"
+             formControlName="eamsAppIdFormControl"
              [matAutocomplete]="autoEamsAppId" id="eamsAppId">
       <mat-autocomplete #autoEamsAppId="matAutocomplete">
         <mat-option *ngFor="let option of filteredeEamsAppIds | async" [value]="option">
@@ -21,7 +21,7 @@
       <input type="text"
              matInput
              formControlName="eamsAppNameFormControl"
-             [formControl]="OnboardingForm.controls.eamsAppNameFormControl"
+             formControlName="eamsAppNameFormControl"
              [matAutocomplete]="autoEamsAppName" id="eamsAppName">
       <mat-autocomplete #autoEamsAppName="matAutocomplete">
         <mat-option *ngFor="let option of filteredEamsAppNames | async" [value]="option">
@@ -35,7 +35,7 @@
       <label for="eamsAppAcronym">Eams App Acronym</label>
       <input type="text"
              matInput
-             [formControl]="OnboardingForm.controls.eamsAppAcronymsFormControl"
+             formControlName="eamsAppAcronymsFormControl"
              [matAutocomplete]="EamsAppAcronym" id="eamsAppAcronym">
       <mat-autocomplete #EamsAppAcronym=>
         <mat-option *ngFor="let option of filteredEamsAppAcronyms | async" [value]="option">
@@ -47,23 +47,21 @@
   <p>
     <mat-form-field class="onboarding-form-fields">
       <label for="serviceName"> Service Name</label>
-      <input type="text" matInput id="serviceName" [formControl]="OnboardingForm.controls.serviceNameControl">
+      <input type="text" matInput id="serviceName" formControlName="serviceNameControl">
     </mat-form-field>
   </p>
   <p>
     <mat-form-field class="onboarding-form-fields">
       <label for="projectKeyJira">project Key Jira</label>
-      <input type="text" matInput id="projectKeyJira" [formControl]="OnboardingForm.controls.jiraIdControl">
+      <input type="text" matInput id="projectKeyJira" formControlName="jiraIdControl">
     </mat-form-field>
   </p>
   <p>
-    <mat-form-field class="onboarding-form-fields">
-      <mat-radio-group [formControl]="OnboardingForm.controls.radioButtonControl" aria-label="Do you have multiple CI/CD branches?"
-                       (change)="ciCdBranches($event)">
-        <mat-radio-button value="1">Yes</mat-radio-button>
-        <mat-radio-button value="2">No</mat-radio-button>
+      <mat-radio-group aria-label="Do you have multiple CI/CD branches?"
+                       (change)="ciCdBranches($event)" formControlName="radioButtonControl">
+                      <mat-radio-button [value]="true" color="primary">Yes</mat-radio-button>
+                      <mat-radio-button [value]="false" color="primary">No</mat-radio-button>
       </mat-radio-group>
-    </mat-form-field>
   </p>
   <!--should get repo owner name, repo name, url-->
   <!--Store multiple values -->
@@ -71,14 +69,14 @@
   <p>
     <mat-form-field class="onboarding-form-fields">
       <label for="gitCloneUrlHttpsCI">gitCloneUrlHttpsCI</label>
-      <input type="text" matInput id="gitCloneUrlHttpsCI" [formControl]="OnboardingForm.controls.gitCloneUrlCIControl">
+      <input type="text" matInput id="gitCloneUrlHttpsCI" formControlName="gitCloneUrlCIControl">
     </mat-form-field>
   </p>
   <p>
 
     <mat-form-field class="onboarding-form-fields">
       <label for="gitCloneUrlHttpsCD">gitCloneUrlHttpsCD</label>
-      <input type="text" matInput id="gitCloneUrlHttpsCD" [formControl]="OnboardingForm.controls.gitCloneUrlCDControl">
+      <input type="text" matInput id="gitCloneUrlHttpsCD" formControlName="gitCloneUrlCDControl">
     </mat-form-field>
   </p>
 
@@ -86,7 +84,7 @@
   <p>
     <mat-form-field class="onboarding-form-fields">
       <label for="gitBranchNameCD">gitBranchNameCD</label>
-      <input type="text" matInput id="gitBranchNameCD" [formControl]="OnboardingForm.controls.gitBranchNameCDControl">
+      <input type="text" matInput id="gitBranchNameCD" formControlName="gitBranchNameCDControl">
     </mat-form-field>
   </p>
 
@@ -94,7 +92,7 @@
   <p>
     <mat-form-field class="onboarding-form-fields">
       <label for="lastDeployDateTimeProd">lastDeployDateTimeProd</label>
-      <input type="text" matInput id="lastDeployDateTimeProd" [formControl]="OnboardingForm.controls.deploymentDateControl">
+      <input type="text" matInput id="lastDeployDateTimeProd" formControlName="deploymentDateControl">
     </mat-form-field>
   </p>
   <!--Autocomplete-->
@@ -106,7 +104,7 @@
              placeholder="Start Typing"
              aria-label="Number"
              matInput
-             [formControl]="OnboardingForm.controls.appHostingEnvFormControl"
+             formControlName="appHostingEnvFormControl"
              [matAutocomplete]="appHostingEnv">
       <mat-autocomplete #appHostingEnv="matAutocomplete">
         <mat-option *ngFor="let option of filteredappHostingEnvs | async" [value]="option">
@@ -128,25 +126,25 @@
   <p>
     <mat-form-field class="onboarding-form-fields">
       <label for="advisoryTool">advisoryTool</label>
-      <input type="text" matInput id="advisoryTool" [formControl]="OnboardingForm.controls.advisoryToolControl">
+      <input type="text" matInput id="advisoryTool" formControlName="advisoryToolControl">
     </mat-form-field>
   </p>
   <p>
     <mat-form-field>
       <label for="cdsidSpoc">cdsidSpoc</label>
-      <input type="text" matInput id="cdsidSpoc" [formControl]="OnboardingForm.controls.cdsidSpocControl">
+      <input type="text" matInput id="cdsidSpoc" formControlName="cdsidSpocControl">
     </mat-form-field>
   </p>
   <p>
     <mat-form-field>
       <label for="cdsidLL6">cdsidLL6</label>
-      <input type="text" matInput id="cdsidLL6" [formControl]="OnboardingForm.controls.cdsidLL6Control">
+      <input type="text" matInput id="cdsidLL6" formControlName="cdsidLL6Control">
     </mat-form-field>
   </p>
   <p>
     <mat-form-field>
       <label for="cdsidLL5">cdsidLL5</label>
-      <input type="text" matInput id="cdsidLL5" [formControl]="OnboardingForm.controls.cdsidLL5Control">
+      <input type="text" matInput id="cdsidLL5" formControlName="cdsidLL5Control">
     </mat-form-field>
   </p>
   <button mat-raised-button (click)=onSubmit()>Submit</button>
