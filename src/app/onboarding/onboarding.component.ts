@@ -13,15 +13,13 @@ import {Onboarding} from "./Onboarding";
 
 })
 export class OnboardingComponent implements OnInit {
-  cicdToolControl = new FormControl('');
-
-  radioButtonControl = new FormControl(false);
 
   OnboardingForm = new FormGroup({
     eamsAppIdFormControl: new FormControl(''),
     eamsAppNameFormControl: new FormControl(''),
     eamsAppAcronymsFormControl: new FormControl(''),
     appHostingEnvFormControl: new FormControl(''),
+    cicdToolControl: new FormGroup(''),
     serviceNameControl: new FormControl(''),
     jiraIdControl: new FormControl(''),
     gitCloneUrlCIControl: new FormControl(''),
@@ -32,7 +30,6 @@ export class OnboardingComponent implements OnInit {
     cdsidSpocControl: new FormControl(''),
     cdsidLL6Control: new FormControl(''),
     cdsidLL5Control: new FormControl(''),
-    cicdToolControl: new FormGroup(''),
     radioButtonControl: new FormControl('')
 
   });
@@ -57,11 +54,10 @@ export class OnboardingComponent implements OnInit {
 
   constructor(private csvService: CsvService, private fb: FormBuilder) {
     this.generateUuid();
-
-
   }
 
   ngOnInit() {
+
     this.loadCsvData();
     this.autoCompleteEamsAppIds();
     this.autoCompleteEamsAppNames();
