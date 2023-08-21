@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
-import { OnboardingComponent } from './onboarding/onboarding.component';
+import {AppComponent} from './app.component';
+import {OnboardingComponent} from './onboarding/onboarding.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
@@ -10,6 +10,10 @@ import {MatSelectModule} from "@angular/material/select";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatCardModule} from "@angular/material/card";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -22,12 +26,17 @@ import {MatCardModule} from "@angular/material/card";
     FormsModule,
     MatInputModule,
     MatSelectModule,
+    MatFormFieldModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    MatRadioModule,
+    MatButtonToggleModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

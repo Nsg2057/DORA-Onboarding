@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CsvService} from "../csv.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
-import {group} from "@angular/animations";
+import {MatRadioChange} from "@angular/material/radio";
+import {Onboarding} from "./Onboarding";
 
 
 @Component({
@@ -11,105 +12,112 @@ import {group} from "@angular/animations";
   styleUrls: ['./onboarding.component.css'],
 
 })
-export class OnboardingComponent implements OnInit{
-  eamsAppIdFormControl = new FormControl('');
-  eamsAppNameFormControl = new FormControl('');
-  eamsAppAcronymsFormControl = new FormControl('');
-  appHostingEnvFormControl = new FormControl('');
-  cicdToolFormControl:any;
-  selectedCID: string | null = null ;
+export class OnboardingComponent implements OnInit {
+  cicdToolControl = new FormControl('');
 
-  showCiUrlInput = false;
-  showCdUrlInput = false;
+  radioButtonControl = new FormControl(false);
 
+  OnboardingForm = new FormGroup({
+    eamsAppIdFormControl: new FormControl(''),
+    eamsAppNameFormControl: new FormControl(''),
+    eamsAppAcronymsFormControl: new FormControl(''),
+    appHostingEnvFormControl: new FormControl(''),
+    serviceNameControl: new FormControl(''),
+    jiraIdControl: new FormControl(''),
+    gitCloneUrlCIControl: new FormControl(''),
+    gitCloneUrlCDControl: new FormControl(''),
+    gitBranchNameCDControl: new FormControl(''),
+    deploymentDateControl: new FormControl(''),
+    advisoryToolControl: new FormControl(''),
+    cdsidSpocControl: new FormControl(''),
+    cdsidLL6Control: new FormControl(''),
+    cdsidLL5Control: new FormControl(''),
+    cicdToolControl: new FormGroup(''),
+    radioButtonControl: new FormControl('')
 
-  formGroup: FormGroup = new FormGroup({
-    ciUrl:new FormControl(''),
-    cdUrl:new FormControl(''),
-    ciCdOption:new FormControl('')
   });
 
-
   uuid: string | null = null;
-  json: any[]  = [];
+  json: any[] = [];
 
   eamsAppIds: any[] = [];
-  filteredeEamsAppIds: Observable<string[]> = new Observable<string[]>();
-  selectedEamsAppId:string |null = null;
+  filteredeEamsAppIds: Observable<string[]> | undefined;
 
-  eamsAppNames : string[] = [];
-  filteredEamsAppNames: Observable<string[]> = new Observable<string[]>();
-  selectedEamsAppName:string | null = null;
+  eamsAppNames: string[] = [];
+  filteredEamsAppNames: Observable<string[]> | undefined;
 
 
   eamsAppAcronyms: string[] = [];
-  filteredEamsAppAcronyms :Observable<string[]> = new Observable<string[]>();
-  selectedEamsAppAcronym:string | null = null;
+  filteredEamsAppAcronyms: Observable<string[]> | undefined;
 
   appHostingEnvs: string[] = [];
-  filteredappHostingEnvs:Observable<string[]> = new Observable<string[]>();
-  selectedappHostingEnv:string | null = null;
+  filteredappHostingEnvs: Observable<string[]> | undefined;
 
-  cicdTools:string[] = [];
+  cicdTools: string[] = [];
 
-constructor(private csvService  : CsvService, private fb: FormBuilder) {
-this.generateUuid();
-this.loadCsvData();
+  constructor(private csvService: CsvService, private fb: FormBuilder) {
+    this.generateUuid();
 
 
-}
+  }
 
   ngOnInit() {
-     this.autoCompleteEamsAppIds();
+    this.loadCsvData();
+    this.autoCompleteEamsAppIds();
     this.autoCompleteEamsAppNames();
     this.autoCompleteEamsAppAcronyms();
     this.autoCompleteAppHostingEnvs();
     // this.validateForm();
   }
+
   //Gettting EamsAppIds when user starts typing
-   autoCompleteEamsAppIds(){
-    this.filteredeEamsAppIds = this.eamsAppIdFormControl.valueChanges.pipe(
+  autoCompleteEamsAppIds() {
+    this.filteredeEamsAppIds = this.OnboardingForm.get("eamsAppIdFormControl")?.valueChanges.pipe(
       startWith(''),
       map(value => this._filterEamsAppIds(value || '')),
     );
   }
-   private _filterEamsAppIds(value: string): string[] {
+
+  private _filterEamsAppIds(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.eamsAppIds.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   //Filtering EamsAppNames for autocompletion
-  private autoCompleteEamsAppNames(){
-    this.filteredEamsAppNames = this.eamsAppNameFormControl.valueChanges.pipe(
+  private autoCompleteEamsAppNames() {
+    this.filteredEamsAppNames = this.OnboardingForm.get('eamsAppNameFormControl')?.valueChanges.pipe(
       startWith(''),
       map(value => this._filterEamsAppNames(value || '')),
     );
   }
+
   private _filterEamsAppNames(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.eamsAppNames.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  private autoCompleteEamsAppAcronyms(){
-    this.filteredEamsAppAcronyms = this.eamsAppAcronymsFormControl.valueChanges.pipe(
+  private autoCompleteEamsAppAcronyms() {
+    this.filteredEamsAppAcronyms = this.OnboardingForm.get('eamsAppAcronymsFormControl')?.valueChanges.pipe(
       startWith(''),
       map(value => this._filterEamsAppAcronyms(value || '')),
     );
   }
+
   private _filterEamsAppAcronyms(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.eamsAppAcronyms.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  private autoCompleteAppHostingEnvs(){
-    this.filteredappHostingEnvs = this.appHostingEnvFormControl.valueChanges.pipe(
+  private autoCompleteAppHostingEnvs() {
+    this.filteredappHostingEnvs = this.OnboardingForm.get('appHostingEnvFormControl')?.valueChanges.pipe(
       startWith(''),
       map(value => this._filterAppHostingEnvs(value || '')),
     );
   }
+
   private _filterAppHostingEnvs(value: string): string[] {
     const filterValue = value.toLowerCase();
 
@@ -120,13 +128,14 @@ this.loadCsvData();
     this.uuid = "DORA" + Date.now();
   }
 
-  //Loading CSV Data and Converting it to JSON and reading JSON values and adding them to required variables for autocompletion;
+  //Loading CSV Data and Converting it to JSON and reading JSON values and adding them to required variables for autocompletion
 
-  async loadCsvData() : Promise<any> {
+
+  async loadCsvData(): Promise<any> {
     const csvFilePath = 'assets/Data.csv';
 
     this.csvService.getCsvData(csvFilePath).subscribe(csvData => {
-      this.json =  this.csvService.parseCsvToJson(csvData);
+      this.json = this.csvService.parseCsvToJson(csvData);
       console.log(this.json);
       if (this.json && this.json.length > 0) {
         this.eamsAppIds = this.json.map((entry) => entry.eamsAppId);
@@ -145,19 +154,34 @@ this.loadCsvData();
 
   }
 
-  selectedOptionCID() {
-    const selectedOptionControl = this.formGroup.get('ciCdOption');
-    const cdUrlControl = this.formGroup.get('cdUrl');
+  ciCdBranches($event: MatRadioChange) {
 
-    if (selectedOptionControl && cdUrlControl) {
-      const selectedOption = selectedOptionControl.value;
+  }
 
-      if (selectedOption === 'yes') {
-        this.showCiUrlInput = true;
-        this.showCdUrlInput = true;
-      } else {
-        this.showCiUrlInput = true;
-      }
-    }
+  onSubmit() {
+    // Get values from the form controls
+    const formValues = this.OnboardingForm.value;
+
+    // Create an instance of the Onboarding class
+    const onboardingData = new Onboarding(
+      formValues.eamsAppIdFormControl,
+      formValues.eamsAppNameFormControl,
+      formValues.eamsAppAcronymsFormControl,
+      formValues.serviceNameControl,
+      formValues.jiraIdControl,
+      formValues.gitCloneUrlCIControl,
+      formValues.gitCloneUrlCDControl,
+      formValues.gitBranchNameCDControl,
+      formValues.deploymentDateControl,
+      formValues.appHostingEnvFormControl,
+      formValues.cicdToolControl,
+      formValues.advisoryToolControl,
+      formValues.cdsidSpocControl,
+      formValues.cdsidLL6Control,
+      formValues.cdsidLL5Control
+    );
+
+    // Now you can use the 'onboardingData' object as needed
+    console.log(onboardingData);
   }
 }
