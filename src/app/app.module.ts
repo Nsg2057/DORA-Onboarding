@@ -14,6 +14,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatButtonModule} from "@angular/material/button";
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {MatButtonModule} from "@angular/material/button";
     MatCardModule,
     MatRadioModule,
     MatButtonToggleModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule
 
   ],
   providers: [],
