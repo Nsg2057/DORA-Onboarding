@@ -15,6 +15,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatRadioModule,
     MatButtonToggleModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
 
   ],
   providers: [],

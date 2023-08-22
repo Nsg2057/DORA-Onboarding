@@ -90,10 +90,18 @@
 
 
       <p>
-        <mat-form-field class="onboarding-form-fields">
+        <!-- <mat-form-field class="onboarding-form-fields">
           <mat-label>lastDeployDateTimeProd</mat-label>
           <input type="text" matInput id="lastDeployDateTimeProd" formControlName="deploymentDateControl">
+        </mat-form-field> -->
+        <mat-form-field class="onboarding-form-fields">
+          <mat-label>Last deploy date</mat-label>
+          <input matInput [matDatepicker]="picker" id="lastDeployDateTimeProd" formControlName="deploymentDateControl" >
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+      
       </p>
       <!--Autocomplete-->
       <p>
