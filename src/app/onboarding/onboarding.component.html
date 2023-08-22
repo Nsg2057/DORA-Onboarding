@@ -129,7 +129,7 @@
             <mat-form-field class="example-full-width">
               <input matInput #cicdTool>
             </mat-form-field>
-            <button (click)="addCICDTool(cicdTool.value); cicdTool.value=''">
+            <button style="float: center;" mat-raised-button (click)="addCICDTool(cicdTool.value); cicdTool.value=''">
               Submit
             </button>
             <mat-option *ngFor="let tool of cicdTools" [value]="tool">{{tool}}</mat-option>
@@ -146,7 +146,8 @@
             <mat-form-field class="example-full-width">
               <input matInput #advisoryTool>
             </mat-form-field>
-            <button (click)="addAdvisoryTool(advisoryTool.value); advisoryTool.value=''">
+            <span class="example-spacer"></span>
+            <button style="float: center;" mat-raised-button (click)="addAdvisoryTool(advisoryTool.value); advisoryTool.value=''">
               Submit
             </button>
             <mat-option *ngFor="let tool of advisoryTools" [value]="tool">{{tool}}</mat-option>
