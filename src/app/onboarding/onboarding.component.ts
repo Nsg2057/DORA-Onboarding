@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CsvService} from "../csv.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
-import {MatRadioChange} from "@angular/material/radio";
 import {Onboarding} from "./Onboarding";
+import {MatRadioChange} from "@angular/material/radio";
 
 
 @Component({
@@ -30,7 +30,8 @@ export class OnboardingComponent implements OnInit {
     cdsidSpocControl: new FormControl(''),
     cdsidLL6Control: new FormControl(''),
     cdsidLL5Control: new FormControl(''),
-    radioButtonControl: new FormControl(false)
+    radioButtonControl: new FormControl(false),
+    multiValueControl: new FormControl('')
 
   });
 
@@ -52,8 +53,11 @@ export class OnboardingComponent implements OnInit {
 
   cicdTools: string[] = [];
 
+ advisoryTools: string[] = [];
+
   constructor(private csvService: CsvService, private fb: FormBuilder) {
     this.generateUuid();
+
   }
 
   ngOnInit() {
@@ -63,7 +67,10 @@ export class OnboardingComponent implements OnInit {
     this.autoCompleteEamsAppNames();
     this.autoCompleteEamsAppAcronyms();
     this.autoCompleteAppHostingEnvs();
-    // this.validateForm();
+    Object.keys(this.OnboardingForm.controls).forEach(controlName => {
+      this.OnboardingForm.get(controlName)?.setValidators(Validators.required);
+      this.OnboardingForm.get(controlName)?.updateValueAndValidity();
+    });
   }
 
   //Gettting EamsAppIds when user starts typing
@@ -125,8 +132,6 @@ export class OnboardingComponent implements OnInit {
   }
 
   //Loading CSV Data and Converting it to JSON and reading JSON values and adding them to required variables for autocompletion
-
-
   async loadCsvData(): Promise<any> {
     const csvFilePath = 'assets/Data.csv';
 
@@ -139,6 +144,7 @@ export class OnboardingComponent implements OnInit {
         this.eamsAppAcronyms = this.json.map((entry) => entry.eamsAppAcronym);
         this.appHostingEnvs = this.json.map((entry) => entry.appHostingEnv);
         this.cicdTools = this.json.map((entry) => entry.cicdTool);
+        this.advisoryTools = this.json.map((entry) => entry.advisoryTool);
 
         console.log('eamsAppIds:', this.eamsAppIds);
         console.log('eamsAppName', this.eamsAppNames);
@@ -150,34 +156,48 @@ export class OnboardingComponent implements OnInit {
 
   }
 
-  ciCdBranches($event: MatRadioChange) {
-
-  }
-
   onSubmit() {
     // Get values from the form controls
-    const formValues = this.OnboardingForm.value;
+    const formValues = this.OnboardingForm.controls;
 
     // Create an instance of the Onboarding class
     const onboardingData = new Onboarding(
-      formValues.eamsAppIdFormControl,
-      formValues.eamsAppNameFormControl,
-      formValues.eamsAppAcronymsFormControl,
-      formValues.serviceNameControl,
-      formValues.jiraIdControl,
-      formValues.gitCloneUrlCIControl,
-      formValues.gitCloneUrlCDControl,
-      formValues.gitBranchNameCDControl,
-      formValues.deploymentDateControl,
-      formValues.appHostingEnvFormControl,
-      formValues.cicdToolControl,
-      formValues.advisoryToolControl,
-      formValues.cdsidSpocControl,
-      formValues.cdsidLL6Control,
-      formValues.cdsidLL5Control
+      formValues.eamsAppIdFormControl.value,
+      formValues.eamsAppNameFormControl.value,
+      formValues.eamsAppAcronymsFormControl.value,
+      formValues.serviceNameControl.value,
+      formValues.jiraIdControl.value,
+      formValues.gitCloneUrlCIControl.value,
+      formValues.gitCloneUrlCDControl.value,
+      formValues.gitBranchNameCDControl.value,
+      formValues.deploymentDateControl.value,
+      formValues.appHostingEnvFormControl.value,
+      formValues.cicdToolControl.value,
+      formValues.advisoryToolControl.value,
+      formValues.cdsidSpocControl.value,
+      formValues.cdsidLL6Control.value,
+      formValues.cdsidLL5Control.value,
+
     );
 
-    // Now you can use the 'onboardingData' object as needed
+    // Now you can use the 'onboardingData' object as neede
     console.log(onboardingData);
   }
+
+  ciCdBranches($event: MatRadioChange){
+
+  }
+  addCICDTool (newValue: string): void {
+    newValue = newValue.trim();
+    if(!newValue) {return;}
+    this.cicdTools.push(newValue);
+  }
+  addAdvisoryTool (newValue: string): void {
+    newValue = newValue.trim();
+    if(!newValue) {return;}
+    this.advisoryTools.push(newValue);
+  }
+
+
 }
+
